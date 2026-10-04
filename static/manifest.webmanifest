@@ -1,0 +1,18 @@
+{
+  "id": "/",
+  "name": "Quran Search",
+  "short_name": "Quran Search",
+  "description": "Aplikasi Al-Qur'an untuk membaca, mencari ayat, mendengarkan murottal, dan memahami Asbabun Nuzul.",
+  "lang": "id",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#28684f",
+  "background_color": "#f5f6f2",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
