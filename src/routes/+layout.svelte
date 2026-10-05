@@ -1,6 +1,5 @@
 <script lang="ts">
   import './layout.css';
-  import Navbar from '$lib/components/Navbar.svelte';
   import MobileBottomNav from '$lib/components/MobileBottomNav.svelte';
   import AudioPlayerBar from '$lib/components/AudioPlayerBar.svelte';
   import SurahSelectorModal from '$lib/components/SurahSelectorModal.svelte';
@@ -11,7 +10,7 @@
   import { afterNavigate, goto } from '$app/navigation';
   import { fade } from 'svelte/transition';
   import { onMount } from 'svelte';
-  import type { SurahInfo, BookmarkItem } from '$lib/types/quran';
+  import type { BookmarkItem } from '$lib/types/quran';
 
   let { children } = $props();
   let serviceWorkerRegistration: ServiceWorkerRegistration | null = null;
@@ -65,31 +64,7 @@
       serviceWorkerRegistration = null;
     };
   });
-
-  const activeTab = $derived(() => {
-    const path = page.url.pathname;
-    if (path === '/') return 'home';
-    if (path.startsWith('/dashboard')) return 'search';
-    if (path.startsWith('/surah')) return 'surah';
-    if (path.startsWith('/asbabun-nuzul')) return 'asbabun_nuzul';
-    return 'home';
-  });
-
-  function handleTabSelect(tab: 'home' | 'search' | 'surah' | 'asbabun_nuzul' | 'bookmarks') {
-    if (tab === 'home') {
-      goto('/');
-    } else if (tab === 'search') {
-      goto('/dashboard?search=1');
-    } else if (tab === 'surah') {
-      appState.isSurahSelectorOpen = true;
-    } else if (tab === 'asbabun_nuzul') {
-      goto('/dashboard?mode=asbabun_nuzul');
-    } else if (tab === 'bookmarks') {
-      appState.isBookmarksOpen = true;
-    }
-  }
-
-  function handleSelectSurah(surah: SurahInfo) {
+  function handleSelectSurah(surah: { nomor: number }) {
     goto(`/dashboard?surah=${surah.nomor}`);
   }
 </script>
@@ -108,17 +83,10 @@
 <div class="ambient-glow"></div>
 
 <div class="min-h-screen flex flex-col relative z-10">
-  <Navbar
-    activeTab={activeTab()}
-    onTabSelect={handleTabSelect}
-    onOpenSurahSelector={() => (appState.isSurahSelectorOpen = true)}
-    bookmarkCount={appState.bookmarks.length}
-  />
-
   <main
-    class="flex-1 pb-24 {appState.currentPlayingAyah
-      ? 'max-md:pb-[calc(12.5rem+env(safe-area-inset-bottom,0px))]'
-      : 'max-md:pb-[calc(6.5rem+env(safe-area-inset-bottom,0px))]'}"
+    class="flex-1 {appState.currentPlayingAyah
+      ? 'pb-[calc(12.5rem+env(safe-area-inset-bottom,0px))] md:pb-44'
+      : 'pb-[calc(6.5rem+env(safe-area-inset-bottom,0px))]'}"
   >
     {#key page.url.pathname}
       <div in:fade={{ duration: 180, delay: 50 }} out:fade={{ duration: 120 }}>

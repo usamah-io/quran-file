@@ -35,11 +35,11 @@
 </script>
 
 <nav
-  class="fixed bottom-0 inset-x-0 z-50 md:hidden"
+  class="fixed bottom-0 inset-x-0 z-50 md:bottom-3"
   aria-label="Navigasi utama"
 >
   <div
-    class="mobile-bottom-nav mx-auto max-w-lg border-t border-slate-200/90 dark:border-white/10 bg-white/95 dark:bg-[#18211d]/95 backdrop-blur-xl shadow-[0_-5px_18px_-8px_rgba(15,23,42,0.18)] dark:shadow-[0_-5px_18px_-8px_rgba(0,0,0,0.55)]"
+    class="mobile-bottom-nav mx-auto max-w-lg border-t border-slate-200/90 dark:border-white/10 bg-white/95 dark:bg-[#18211d]/95 backdrop-blur-xl shadow-[0_-5px_18px_-8px_rgba(15,23,42,0.18)] dark:shadow-[0_-5px_18px_-8px_rgba(0,0,0,0.55)] md:max-w-xl md:rounded-2xl md:border md:shadow-xl"
   >
     <ul class="grid grid-cols-5 h-[68px] px-1">
       {#each items as item}
@@ -71,4 +71,7 @@
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
   .mobile-bottom-nav a { min-height: 44px; }
+  @media (min-width: 768px) {
+    .mobile-bottom-nav { padding-bottom: 0; }
+  }
 </style>
